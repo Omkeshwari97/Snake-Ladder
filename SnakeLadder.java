@@ -27,16 +27,19 @@ public class SnakeLadder
 								position=position+0;
 								break;
 				case LADDER:	System.out.println("LADDER");
-								position=position+dieNumber;
+                                if(position+dieNumber<=100)
+                                    position=position+dieNumber;
 								break;
 				case SNAKE:		System.out.println("SNAKE");
-								position=position-dieNumber;
+                                position=position-dieNumber;
+                                if(position<0)
+									position=0;
 								break;
 				default:		break;
 			}
 
 			System.out.println("Current Die Postion: "+position);
-		}while(position<=100);
+		}while(position!=100);
 		
 		System.out.println("Final Position: "+position);
 	}

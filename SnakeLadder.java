@@ -6,16 +6,11 @@ public class SnakeLadder
 	public static final int LADDER=2;
 	public static final int SNAKE=3;
 
-	public static void main(String args[])
+	public static int game(int position,String player)
 	{
-		int position=0,dieNumber=0,diecount=0;
-
-		do
-		{	
-			diecount++;
-							
+			
 			//System.out.println(Math.random()*5);
-			dieNumber=1 + (int)(Math.random() * ((6 - 1) + 1));
+			int dieNumber=1 + (int)(Math.random() * ((6 - 1) + 1));
 			System.out.println("Number when die rolled: "+dieNumber);
 
 			int options=1 + (int)(Math.random() * ((3 - 1) + 1));
@@ -27,21 +22,54 @@ public class SnakeLadder
 								break;
 				case LADDER:	System.out.println("LADDER");
 								if(position+dieNumber<=100)
+								{
 									position=position+dieNumber;
+									position=game(position,player);
+								}	
 								break;
 				case SNAKE:		System.out.println("SNAKE");
-                                position=position-dieNumber;
-                                if(position<0)
+								position=position-dieNumber;
+								if(position<0)
 									position=0;
 								break;
 				default:		break;
-			}
+			}	
+		return position;
+	}
 
-			System.out.println("Current Die Postion: "+position);
-		}while(position!=100);
-		
-		System.out.println("Final Position: "+position);
-		System.out.println("Total number of times dice is rolled for win: "+diecount);
+	public static void main(String args[])
+	{
+		int p1=0,p2=0,count=0,f=0;
+
+		while(p1!=100 && p2!=100)
+		{
+			if(count%2==0)
+			{
+				p1=game(p1,"Player 1");
+				System.out.println("Position of Player 1: "+p1);
+
+				if(p1==100)
+				{
+					System.out.println("Player 1 wins.");
+					f=1;
+				}
+			}
+			if(count%2==1)
+			{
+				p2=game(p2,"Player 2");
+				System.out.println("Position of Player 2: "+p2);
+
+				if(p2==100)
+				{
+					System.out.println("Player 2 wins.");
+					f=1;
+				}
+			}
+			count++;
+			
+			if(f==1)
+				break;
+		}
 	}
 
 }
